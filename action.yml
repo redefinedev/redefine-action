@@ -29,6 +29,10 @@ inputs:
   min-accuracy:
     description: "The minimum accuracy for Redefine to achieve."
     required: false
+  confidence-level:
+    description: "Redefine confidence level."
+    required: false
+    enum: ["low", "high", "normal"]
   session-id:
     description: "The session ID matching between the orchestrator and the workers"
     required: false
@@ -89,6 +93,10 @@ runs:
 
         if [ -n "${{ inputs.min-accuracy }}" ]; then
             CONFIG_ARGS="${CONFIG_ARGS} min_accuracy=${{ inputs.min-accuracy }}"
+        fi
+
+        if [ -n "${{ inputs.confidence-level }}" ]; then
+            CONFIG_ARGS="${CONFIG_ARGS} confidence=${{ inputs.confidence-level }}"
         fi
 
         CONFIG_ARGS="${CONFIG_ARGS} ${{ inputs.config-args }}"
