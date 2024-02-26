@@ -33,8 +33,8 @@ This GitHub Action installs, configures &amp; runs [Redefine](https://bit.ly/3Rj
 |`command`|Redefine CLI command, one of "[`start`](https://docs.redefine.dev/configuration/start-command)", "[`verify`](https://docs.redefine.dev/welcome-to-redefine/quick-start#verify)", "[`get session_id`](https://docs.redefine.dev/configuration/remote-workers#configure-a-shared-session-id)", "[`get session_check`](https://docs.redefine.dev/configuration/remote-workers#session-check-command)".|`start`|
 |`mode`|Redefine execution mode, on of "[`discover`](https://docs.redefine.dev/configuration/selection-modes/discover)", "[`prioritize`](https://docs.redefine.dev/configuration/selection-modes/prioritize)", "[`fail-fast`](https://docs.redefine.dev/configuration/selection-modes/fail-fast)", "[`optimize`](https://docs.redefine.dev/configuration/selection-modes/optimize)".|`discover`|
 |`python-venv-path`|Python virtual environment to install Redefine in.|-|
-|`time-limit`|The [time limit](https://docs.redefine.dev/configuration/time-limit) for running Redefine.|-|
-|`min-accuracy`|The [minimum accuracy](https://docs.redefine.dev/configuration/minumum-accuracy) for Redefine to achieve.|-|
+|`time-limit`|The [time limit](https://docs.redefine.dev/configuration/configuration-parameters#time-limit) for running Redefine.|-|
+|`min-accuracy`|The [minimum accuracy](https://docs.redefine.dev/configuration/configuration-parameters#minumum-accuracy) for Redefine to achieve.|-|
 |`confidence-level`|The [Confidence Level](https://docs.redefine.dev/configuration/configuration-parameters#confidence) required for the run.|-|
 |`session-id`|The [session ID](https://docs.redefine.dev/configuration/remote-workers#configure-a-shared-session-id) matching between the orchestrator and the workers|-|
 |`config-args`|[Additional arguments](https://docs.redefine.dev/configuration/configuration-parameters) to pass to the `config set` command in format of key1=value1 key2="long value2" ...|-|
