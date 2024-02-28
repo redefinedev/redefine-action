@@ -29,7 +29,7 @@ inputs:
   min-accuracy:
     description: "The minimum accuracy for Redefine to achieve."
     required: false
-  confidence-level:
+  confidence:
     description: "Redefine confidence level."
     required: false
     enum: ["low", "high", "normal"]
@@ -95,8 +95,8 @@ runs:
             CONFIG_ARGS="${CONFIG_ARGS} min_accuracy=${{ inputs.min-accuracy }}"
         fi
 
-        if [ -n "${{ inputs.confidence-level }}" ]; then
-            CONFIG_ARGS="${CONFIG_ARGS} confidence=${{ inputs.confidence-level }}"
+        if [ -n "${{ inputs.confidence }}" ]; then
+            CONFIG_ARGS="${CONFIG_ARGS} confidence=${{ inputs.confidence }}"
         fi
 
         CONFIG_ARGS="${CONFIG_ARGS} ${{ inputs.config-args }}"
