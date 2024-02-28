@@ -35,7 +35,7 @@ This GitHub Action installs, configures &amp; runs [Redefine](https://bit.ly/3Rj
 |`python-venv-path`|Python virtual environment to install Redefine in.|-|
 |`time-limit`|The [time limit](https://docs.redefine.dev/configuration/configuration-parameters#time-limit) for running Redefine.|-|
 |`min-accuracy`|The [minimum accuracy](https://docs.redefine.dev/configuration/configuration-parameters#minumum-accuracy) for Redefine to achieve.|-|
-|`confidence-level`|The [Confidence Level](https://docs.redefine.dev/configuration/configuration-parameters#confidence) required for the run.|-|
+|`confidence`|The [Confidence](https://docs.redefine.dev/configuration/configuration-parameters#confidence) level for Redefine's prediction.|-|
 |`session-id`|The [session ID](https://docs.redefine.dev/configuration/remote-workers#configure-a-shared-session-id) matching between the orchestrator and the workers|-|
 |`config-args`|[Additional arguments](https://docs.redefine.dev/configuration/configuration-parameters) to pass to the `config set` command in format of key1=value1 key2="long value2" ...|-|
 |`args`|Additional arguments to pass to the redefine command.|-|
