@@ -145,7 +145,7 @@ runs:
               CMD_ARGS="${CMD_ARGS} --output-path=${{ inputs.output-path }}"
           fi
           if [ -n "${{ inputs.predict-command }}" ]; then
-              CMD_ARGS="${CMD_ARGS} --command=${{ inputs.predict-command }}"
+              CMD_ARGS="${CMD_ARGS} --command=\"${{ inputs.predict-command }}\""
           fi
           # has default, no need to check if set 
           CMD_ARGS="${CMD_ARGS} --timeout=${{ inputs.timeout }}"
