@@ -14,7 +14,7 @@ inputs:
     description: "Redefine CLI command to perform."
     required: false
     default: "start"
-    enum: ["start", "verify", "get session_check", "get session_id"]
+    enum: ["start", "verify", "get session_check", "get session_id", "predict"]
   mode:
     description: "Redefine execution mode."
     required: false
@@ -36,6 +36,16 @@ inputs:
   session-id:
     description: "The session ID matching between the orchestrator and the workers"
     required: false
+  output-path:
+    description: "Path to where the predicted tests will be written to in the format of a '\n' divided list"
+    required: false
+  predict-command:
+    description: "Testing framework command to execute, for example: 'npx cypress run'"
+    required: false
+  timeout:
+    description: "timeout for the testing framework invocation command, default to 10 seconds"
+    required: false
+    default: 10
   config-args:
     description: "Additional arguments to pass to the `config set` command in format of key1=value1 key2='long value2' ..."
     required: false
@@ -111,7 +121,7 @@ runs:
         CMD_ARGS="${{ inputs.command }}"
 
         # if command is "start"/"verify", add the testing framework
-        if [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "verify" ]; then
+        if [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "verify" ] || [ "${{ inputs.command }}" = "predict" ]; then
 
             # Will fail at redefine command if missing, no need to add verification here.
             if [ -n "${{ inputs.testing-framework }}" ]; then
@@ -120,12 +130,25 @@ runs:
         fi
 
         # if command is "start", add the mode
-        if [ "${{ inputs.command }}" = "start" ]; then
+        if [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "predict" ]; then
 
             # Will fail at redefine command if missing, no need to add verification here.
             if [ -n "${{ inputs.mode }}" ]; then
                 CMD_ARGS="${CMD_ARGS} --${{ inputs.mode }}"
             fi
+        fi
+
+        # if command is "predict", add prediction output path and command
+        if [ "${{ inputs.command }}" = "predict" ]; then
+          # Will fail at redefine command if missing, no need to add verification here.
+          if [ -n "${{ inputs.output-path }}" ]; then
+              CMD_ARGS="${CMD_ARGS} --output-path=${{ inputs.output-path }}"
+          fi
+          if [ -n "${{ inputs.predict-command }}" ]; then
+              CMD_ARGS="${CMD_ARGS} --command=\"${{ inputs.predict-command }}\""
+          fi
+          # has default, no need to check if set 
+          CMD_ARGS="${CMD_ARGS} --timeout=${{ inputs.timeout }}"
         fi
 
         CMD_ARGS="${CMD_ARGS} ${{ inputs.args }}"
