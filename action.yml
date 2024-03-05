@@ -138,6 +138,16 @@ runs:
             fi
         fi
 
+        # if command is "verify" in "worker" mode, add the mode
+        if [ "${{ inputs.command }}" = "verify" ] || [ "${{ inputs.mode }}" = "worker" ]; then
+
+            # Will fail at redefine command if missing, no need to add verification here.
+            if [ -n "${{ inputs.mode }}" ]; then
+                CMD_ARGS="${CMD_ARGS} --${{ inputs.mode }}"
+            fi
+        fi
+
+
         # if command is "predict", add prediction output path and command
         if [ "${{ inputs.command }}" = "predict" ]; then
           # Will fail at redefine command if missing, no need to add verification here.
