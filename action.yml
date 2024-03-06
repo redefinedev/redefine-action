@@ -43,9 +43,14 @@ inputs:
     description: "Testing framework command to execute, for example: 'npx cypress run'"
     required: false
   timeout:
-    description: "timeout for the testing framework invocation command, default to 10 seconds"
+    description: "Timeout for the testing framework invocation command, default to 10 seconds"
     required: false
     default: 10
+  exit-code:
+    description: "Return exit code"
+    required: false
+    type: boolean
+    default: false
   config-args:
     description: "Additional arguments to pass to the `config set` command in format of key1=value1 key2='long value2' ..."
     required: false
@@ -136,6 +141,11 @@ runs:
             if [ -n "${{ inputs.mode }}" ]; then
                 CMD_ARGS="${CMD_ARGS} --${{ inputs.mode }}"
             fi
+        fi
+
+        # Add exit code arg to start command if needed
+        if [ "${{ inputs.command }}" = "start" ] && [ ${{ inputs.exit-code }} = true ]; then
+            CMD_ARGS="${CMD_ARGS} --exit-code"
         fi
 
         # if command is "verify" in "worker" mode, add the mode
