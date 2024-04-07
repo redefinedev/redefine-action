@@ -13,8 +13,8 @@ inputs:
   command:
     description: "Redefine CLI command to perform."
     required: false
-    default: "start"
-    enum: ["start", "verify", "get session_check", "get session_id", "predict"]
+    default: "install"
+    enum: ["install", "start", "verify", "get session_check", "get session_id", "predict"]
   mode:
     description: "Redefine execution mode."
     required: false
@@ -125,8 +125,8 @@ runs:
         # Prep Redefine CLI command
         CMD_ARGS="${{ inputs.command }}"
 
-        # if command is "start"/"verify", add the testing framework
-        if [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "verify" ] || [ "${{ inputs.command }}" = "predict" ]; then
+        # if command is "install"/"predict"/"start"/"verify", add the testing framework
+        if [ "${{ inputs.command }}" = "install" ] || [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "verify" ] || [ "${{ inputs.command }}" = "predict" ]; then
 
             # Will fail at redefine command if missing, no need to add verification here.
             if [ -n "${{ inputs.testing-framework }}" ]; then
@@ -134,8 +134,8 @@ runs:
             fi
         fi
 
-        # if command is "start", add the mode
-        if [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "predict" ]; then
+        # if command is "install"/"predict"/"start", add the mode
+        if [ "${{ inputs.command }}" = "install" ] || [ "${{ inputs.command }}" = "start" ] || [ "${{ inputs.command }}" = "predict" ]; then
 
             # Will fail at redefine command if missing, no need to add verification here.
             if [ -n "${{ inputs.mode }}" ]; then
@@ -143,9 +143,11 @@ runs:
             fi
         fi
 
-        # Add exit code arg to start command if needed
-        if [ "${{ inputs.command }}" = "start" ] && [ ${{ inputs.exit-code }} = true ]; then
-            CMD_ARGS="${CMD_ARGS} --exit-code"
+        # Add exit code arg to "install"/"start" command if needed
+        if [ "${{ inputs.command }}" = "install" ] || [ "${{ inputs.command }}" = "start" ]; then
+            if [ ${{ inputs.exit-code }} = true ]; then
+              CMD_ARGS="${CMD_ARGS} --exit-code"
+            fi
         fi
 
         # if command is "verify" in "worker" mode, add the mode
