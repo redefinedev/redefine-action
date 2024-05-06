@@ -14,7 +14,8 @@ inputs:
     description: "Redefine CLI command to perform."
     required: false
     default: "install"
-    enum: ["install", "verify", "get session_check", "get session_id", "predict"]
+    enum:
+      ["install", "verify", "get session_check", "get session_id", "predict"]
   mode:
     description: "Redefine execution mode."
     required: false
@@ -51,6 +52,12 @@ inputs:
     required: false
     type: boolean
     default: false
+  split:
+    description: "When using Redefine Parallel, determines how many workers to split the tests into"
+    required: false
+  group:
+    description: "When using Redefine Parallel, determines what group (index) the worker belongs to"
+    required: false
   config-args:
     description: "Additional arguments to pass to the `config set` command in format of key1=value1 key2='long value2' ..."
     required: false
@@ -67,8 +74,8 @@ outputs:
     value: ${{ steps.run-redefine.outputs.session-id }}
 
 branding:
-  icon: 'fast-forward'
-  color: 'purple'
+  icon: "fast-forward"
+  color: "purple"
 
 runs:
   using: "composite"
@@ -169,6 +176,14 @@ runs:
           fi
           # has default, no need to check if set 
           CMD_ARGS="${CMD_ARGS} --timeout=${{ inputs.timeout }}"
+        fi
+
+        # if the user passed "split" and "group" arguments, add them to the command
+        if [ -n "${{ inputs.split }}" ]; then
+            CMD_ARGS="${CMD_ARGS} --split=${{ inputs.split }}"
+        fi
+        if [ -n "${{ inputs.group }}" ]; then
+            CMD_ARGS="${CMD_ARGS} --group=${{ inputs.group }}"
         fi
 
         CMD_ARGS="${CMD_ARGS} ${{ inputs.args }}"
