@@ -14,7 +14,8 @@ inputs:
     description: "Redefine CLI command to perform."
     required: false
     default: "install"
-    enum: ["install", "verify", "get session_check", "get session_id", "predict"]
+    enum:
+      ["install", "verify", "get session_check", "get session_id", "predict"]
   mode:
     description: "Redefine execution mode."
     required: false
@@ -67,8 +68,8 @@ outputs:
     value: ${{ steps.run-redefine.outputs.session-id }}
 
 branding:
-  icon: 'fast-forward'
-  color: 'purple'
+  icon: "fast-forward"
+  color: "purple"
 
 runs:
   using: "composite"
@@ -96,7 +97,7 @@ runs:
 
         if ! redefine --version; then
             echo "Installing Redefine..."
-            pip install -U --no-cache-dir --force-reinstall redefine --index-url https://pip.redefine.dev
+            pip install -U --no-cache-dir --force-reinstall redefine
         fi
 
         # Prep `redefine config set` command
