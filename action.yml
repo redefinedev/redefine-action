@@ -103,7 +103,7 @@ runs:
 
         if ! redefine --version; then
             echo "Installing Redefine..."
-            pip install -U --no-cache-dir --force-reinstall redefine --index-url https://pip.redefine.dev
+            pip install -U --no-cache-dir --force-reinstall redefine
         fi
 
         # Prep `redefine config set` command
