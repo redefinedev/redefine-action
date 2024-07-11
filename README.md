@@ -265,8 +265,6 @@ jobs:
             testing-framework: pytest
             # Redefine mode as described in https://docs.redefine.dev/configuration/selection-modes
             mode: optimize
-            # The maximum time to run tests with Redefine optimization
-            time-limit: 300
             # Create a unique session ID for the workers to use
             # The session ID should be unique for each run
             session-id: ${{ github.run_id }}_${{ github.run_attempt }}
