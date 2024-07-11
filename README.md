@@ -224,7 +224,7 @@ jobs:
         run: pytest -n auto tests/
 ```
 
-### Example usage for Github Actions with multiple machines in parallel
+### Example usage for Github Actions with Redefine Parallel
 
 ```yaml
 name: Redefine
