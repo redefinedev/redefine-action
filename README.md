@@ -280,5 +280,4 @@ jobs:
         run: |
           pytest tests/
 
-<!-- ### Example usage for Github Actions optimized PR with feedback from main -->
 ```
