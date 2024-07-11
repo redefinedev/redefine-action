@@ -37,7 +37,7 @@ name|description|default|
 |`time-limit`|The [time limit](https://docs.redefine.dev/configuration/configuration-parameters#time-limit) for running Redefine.|-|
 |`min-accuracy`|The [minimum accuracy](https://docs.redefine.dev/configuration/configuration-parameters#minumum-accuracy) for Redefine to achieve.|-|
 |`confidence`|The [Confidence](https://docs.redefine.dev/configuration/configuration-parameters#confidence) level for Redefine's prediction.|-|
-|`session-id`|The [session ID](https://docs.redefine.dev/configuration/remote-workers#configure-a-shared-session-id) matching between the orchestrator and the workers|-|
+|`session-id`|The [session ID](https://docs.redefine.dev/configuration/remote-workers#configure-a-shared-session-id) unique for all workers in the run|-|
 |`config-args`|[Additional arguments](https://docs.redefine.dev/configuration/configuration-parameters) to pass to the `config set` command in format of key1=value1 key2="long value2" ...|-|
 |`split`|The number of machines to split the tests between, when using [Redefine Parallel](https://docs.redefine.dev/configuration/parallel-test-execution/redefine-parallel)|-|
 |`group`|The machine index when using [Redefine Parallel](https://docs.redefine.dev/configuration/parallel-test-execution/redefine-parallel)|-|
@@ -265,8 +265,6 @@ jobs:
             testing-framework: pytest
             # Redefine mode as described in https://docs.redefine.dev/configuration/selection-modes
             mode: optimize
-            # The maximum time to run tests with Redefine optimization
-            time-limit: 300
             # Create a unique session ID for the workers to use
             # The session ID should be unique for each run
             session-id: ${{ github.run_id }}_${{ github.run_attempt }}
